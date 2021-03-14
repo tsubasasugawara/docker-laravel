@@ -22,18 +22,11 @@ services:
     image: postgres:12
     environment: 
       TZ: 'Asia/Tokyo'
-      POSTGRES_USER: 'steadfast'
-      POSTGRES_PASSWORD: 'fsajiewNINDFAn89'
-      POSTGRES_DB: 'laravel'
-      PGPASSWORD: 'fsajiewNINDFAn89'
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+      PGPASSWORD: password
     volumes:
       - dbdata:/var/lib/postgres
     ports:
       - 5432:5432
-
-  # mysql:
-  #   build: ./infra/mysql
-  #   volumes:
-  #     - dbdata:/var/lib/mysql
-  #   ports:
-  #     - 3306:3306
