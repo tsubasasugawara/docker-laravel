@@ -1,0 +1,39 @@
+version: "3.8"
+volumes:
+  php-fpm-socket:
+  dbdata:   
+
+services:
+  php:
+    build: ./infra/php
+    volumes:
+      - php-fpm-socket:/var/run/php-fpm
+      - ./backend:/work/backend
+
+  nginx:
+    build: ./infra/nginx
+    ports:
+      - 80:80
+    volumes:
+      - php-fpm-socket:/var/run/php-fpm
+      - ./backend:/work/backend
+
+  postgres:
+    image: postgres:12
+    environment: 
+      TZ: 'Asia/Tokyo'
+      POSTGRES_USER: 'steadfast'
+      POSTGRES_PASSWORD: 'fsajiewNINDFAn89'
+      POSTGRES_DB: 'laravel'
+      PGPASSWORD: 'fsajiewNINDFAn89'
+    volumes:
+      - dbdata:/var/lib/postgres
+    ports:
+      - 5432:5432
+
+  # mysql:
+  #   build: ./infra/mysql
+  #   volumes:
+  #     - dbdata:/var/lib/mysql
+  #   ports:
+  #     - 3306:3306
